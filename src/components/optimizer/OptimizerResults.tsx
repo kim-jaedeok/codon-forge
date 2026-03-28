@@ -15,7 +15,7 @@ function formatSequence(dna: string): { num: string; chunks: string }[] {
   const lines: { num: string; chunks: string }[] = [];
   for (let i = 0; i < dna.length; i += 60) {
     const num = String(i + 1).padStart(Math.max(String(dna.length).length + 1, 5));
-    const lineSeq = dna.substring(i, i + 60).toLowerCase();
+    const lineSeq = dna.substring(i, i + 60);
     const chunks: string[] = [];
     for (let j = 0; j < lineSeq.length; j += 10) {
       chunks.push(lineSeq.substring(j, j + 10));
@@ -183,10 +183,10 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
                   <span>{line.chunks.split('').map((ch, j) => (
                     ch === ' ' ? <span key={j}> </span> :
                     <span key={j} className={
-                      ch === 'a' ? 'text-green-600' :
-                      ch === 't' ? 'text-red-500' :
-                      ch === 'g' ? 'text-amber-500' :
-                      ch === 'c' ? 'text-blue-500' : 'text-stone-400'
+                      ch === 'A' ? 'text-green-600' :
+                      ch === 'T' ? 'text-red-500' :
+                      ch === 'G' ? 'text-amber-500' :
+                      ch === 'C' ? 'text-blue-500' : 'text-stone-400'
                     }>{ch}</span>
                   ))}</span>
                 </div>
