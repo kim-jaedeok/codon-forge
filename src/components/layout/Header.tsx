@@ -13,6 +13,10 @@ export function Header() {
         <span>20 restriction enzymes</span>
         <span className="text-stone-700">|</span>
         <span>FASTA / GenBank export</span>
+        <span className="text-stone-700">|</span>
+        <a href="https://github.com/kim-jaedeok/codon-forge" target="_blank" rel="noopener noreferrer" className="text-stone-400 hover:text-white transition-colors">
+          GitHub
+        </a>
       </div>
     </header>
   );
