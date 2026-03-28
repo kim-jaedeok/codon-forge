@@ -11,6 +11,20 @@ import { computeGCWindow } from '../../lib/analysis/gcWindow';
 import { RESTRICTION_ENZYMES } from '../../constants/restrictionEnzymes';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, LineChart, Line, ReferenceLine, CartesianGrid } from 'recharts';
 
+function formatSequence(dna: string): { num: string; chunks: string }[] {
+  const lines: { num: string; chunks: string }[] = [];
+  for (let i = 0; i < dna.length; i += 60) {
+    const num = String(i + 1).padStart(Math.max(String(dna.length).length + 1, 5));
+    const lineSeq = dna.substring(i, i + 60).toLowerCase();
+    const chunks: string[] = [];
+    for (let j = 0; j < lineSeq.length; j += 10) {
+      chunks.push(lineSeq.substring(j, j + 10));
+    }
+    lines.push({ num, chunks: chunks.join(' ') });
+  }
+  return lines;
+}
+
 function exportFasta(result: OptimizationResult): string {
   return `>Optimized_sequence length=${result.optimizedDNA.length}bp CAI=${result.caiAfterOptimization.toFixed(3)} GC=${(result.gcContentAfter * 100).toFixed(1)}%\n${result.optimizedDNA.match(/.{1,80}/g)?.join('\n') || result.optimizedDNA}`;
 }
@@ -162,8 +176,13 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
                 </button>
               </div>
             </div>
-            <div className="p-3 bg-stone-50 dark:bg-stone-700/50 rounded border border-stone-200 dark:border-stone-600 font-mono text-xs break-all leading-relaxed max-h-48 overflow-y-auto">
-              {result.optimizedDNA}
+            <div className="p-3 bg-stone-50 dark:bg-stone-700/50 rounded border border-stone-200 dark:border-stone-600 font-mono text-xs leading-relaxed max-h-64 overflow-y-auto">
+              {formatSequence(result.optimizedDNA).map((line, i) => (
+                <div key={i} className="flex">
+                  <span className="text-stone-400 select-none w-12 shrink-0 text-right mr-3">{line.num}</span>
+                  <span className="text-stone-700 dark:text-stone-300">{line.chunks}</span>
+                </div>
+              ))}
             </div>
           </div>
 
