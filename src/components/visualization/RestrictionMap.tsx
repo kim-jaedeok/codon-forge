@@ -34,7 +34,7 @@ export function RestrictionMap({ sites, seqLength }: Props) {
 
   return (
     <div>
-      <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Restriction Enzyme Cut Map</h3>
+      <h3 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-2">Restriction Enzyme Cut Map</h3>
       <div className="overflow-x-auto">
         <svg viewBox={`0 0 ${width} ${height}`} className="w-full" style={{ minWidth: 500 }}>
           {/* Sequence line */}

@@ -8,13 +8,13 @@ export function BasicStatsCard({ stats }: { stats: BasicStats }) {
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
         <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-          <p className="text-sm text-gray-500 dark:text-gray-400">Sequence Length</p>
+          <p className="text-base text-gray-500 dark:text-gray-400">Sequence Length</p>
           <p className="text-2xl font-bold text-gray-900 dark:text-white">
-            {stats.length.toLocaleString()} <span className="text-sm font-normal">bp</span>
+            {stats.length.toLocaleString()} <span className="text-base font-normal">bp</span>
           </p>
         </div>
         <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-          <p className="text-sm text-gray-500 dark:text-gray-400">GC Content</p>
+          <p className="text-base text-gray-500 dark:text-gray-400">GC Content</p>
           <p className="text-2xl font-bold text-gray-900 dark:text-white">
             {(stats.gcContent * 100).toFixed(1)}%
           </p>
@@ -22,8 +22,8 @@ export function BasicStatsCard({ stats }: { stats: BasicStats }) {
       </div>
 
       <div>
-        <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Nucleotide Frequency</h3>
-        <table className="w-full text-sm">
+        <h3 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-2">Nucleotide Frequency</h3>
+        <table className="w-full text-base">
           <thead>
             <tr className="text-left text-gray-500 dark:text-gray-400">
               <th className="py-1 px-2">Base</th>

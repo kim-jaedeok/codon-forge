@@ -131,7 +131,7 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
 
   return (
     <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-3">
-      <h2 className="text-xs font-medium text-stone-500 dark:text-stone-400 uppercase tracking-wider mb-2">Optimization Results</h2>
+      <h2 className="text-sm font-medium text-stone-500 dark:text-stone-400 uppercase tracking-wider mb-2">Optimization Results</h2>
       <Tabs tabs={['Sequence', 'Codon Usage', 'Analysis', 'Change Log', 'AI Analysis']} active={tab} onChange={setTab} />
 
       {tab === 0 && (
@@ -146,7 +146,7 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
             ].map(m => (
               <div key={m.label} className="p-2 bg-stone-50 dark:bg-stone-700/50 rounded border border-stone-100 dark:border-stone-600">
                 <p className="text-[10px] text-stone-400 uppercase tracking-wider">{m.label}</p>
-                <p className={`text-lg font-mono font-bold ${m.highlight ? 'text-stone-900 dark:text-white' : 'text-stone-700 dark:text-stone-300'}`}>{m.value}</p>
+                <p className={`text-xl font-mono font-bold ${m.highlight ? 'text-stone-900 dark:text-white' : 'text-stone-700 dark:text-stone-300'}`}>{m.value}</p>
               </div>
             ))}
           </div>
@@ -154,29 +154,29 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
           {/* Optimized sequence */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-semibold text-stone-700 dark:text-stone-300">Optimized DNA Sequence</h3>
+              <h3 className="text-base font-semibold text-stone-700 dark:text-stone-300">Optimized DNA Sequence</h3>
               <div className="flex gap-1.5">
                 <button
                   onClick={() => { navigator.clipboard.writeText(result.optimizedDNA); }}
-                  className="px-3 py-1.5 text-xs font-medium bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 rounded hover:bg-stone-800 dark:hover:bg-stone-300 transition-colors"
+                  className="px-3 py-1.5 text-sm font-medium bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 rounded hover:bg-stone-800 dark:hover:bg-stone-300 transition-colors"
                 >
                   Copy
                 </button>
                 <button
                   onClick={() => downloadFile(exportFasta(result), 'optimized.fasta')}
-                  className="px-3 py-1.5 text-xs font-medium border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 rounded hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
+                  className="px-3 py-1.5 text-sm font-medium border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 rounded hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
                 >
                   FASTA
                 </button>
                 <button
                   onClick={() => downloadFile(exportGenBank(result), 'optimized.gb')}
-                  className="px-3 py-1.5 text-xs font-medium border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 rounded hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
+                  className="px-3 py-1.5 text-sm font-medium border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 rounded hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
                 >
                   GenBank
                 </button>
               </div>
             </div>
-            <div className="p-3 bg-stone-50 dark:bg-stone-700/50 rounded border border-stone-200 dark:border-stone-600 font-mono text-xs leading-relaxed max-h-64 overflow-y-auto">
+            <div className="p-3 bg-stone-50 dark:bg-stone-700/50 rounded border border-stone-200 dark:border-stone-600 font-mono text-sm leading-relaxed max-h-64 overflow-y-auto">
               {formatSequence(result.optimizedDNA).map((line, i) => (
                 <div key={i} className="flex">
                   <span className="text-stone-400 select-none w-12 shrink-0 text-right mr-3">{line.num}</span>
@@ -197,9 +197,9 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
           {/* Warnings */}
           {result.remainingViolations.length > 0 && (
             <div className="p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-              <p className="text-xs font-medium text-yellow-700 dark:text-yellow-400 mb-1">Warnings ({result.remainingViolations.length})</p>
+              <p className="text-sm font-medium text-yellow-700 dark:text-yellow-400 mb-1">Warnings ({result.remainingViolations.length})</p>
               {result.remainingViolations.map((v, i) => (
-                <p key={i} className="text-xs text-yellow-600 dark:text-yellow-500">{v.description}</p>
+                <p key={i} className="text-sm text-yellow-600 dark:text-yellow-500">{v.description}</p>
               ))}
             </div>
           )}
@@ -229,7 +229,7 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
         <div className="space-y-4">
           <p className="text-[10px] text-stone-400 uppercase tracking-wider">Top 20 Codons by Frequency</p>
           <div className="overflow-x-auto max-h-80 overflow-y-auto">
-            <table className="w-full text-xs">
+            <table className="w-full text-sm">
               <thead className="sticky top-0 bg-gray-50 dark:bg-gray-700">
                 <tr className="text-left text-stone-500">
                   <th className="py-2 px-2">Codon</th>
@@ -274,19 +274,19 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
 
           {/* Restriction sites */}
           <div>
-            <h3 className="text-sm font-semibold text-stone-700 dark:text-stone-300 mb-2">
+            <h3 className="text-base font-semibold text-stone-700 dark:text-stone-300 mb-2">
               Restriction Sites ({sites.length} sites, {uniqueEnzymes.length} enzymes)
             </h3>
             {sites.length === 0 ? (
-              <p className="text-xs text-stone-500 p-2 bg-stone-50 dark:bg-stone-700/50 rounded font-mono">No restriction sites detected</p>
+              <p className="text-sm text-stone-500 p-2 bg-stone-50 dark:bg-stone-700/50 rounded font-mono">No restriction sites detected</p>
             ) : (
               <div className="space-y-1">
                 {uniqueEnzymes.map(enzyme => (
-                  <div key={enzyme} className="flex items-center gap-2 text-sm">
+                  <div key={enzyme} className="flex items-center gap-2 text-base">
                     <span className="font-mono font-semibold w-16">{enzyme}</span>
                     <div className="flex flex-wrap gap-1">
                       {sites.filter(s => s.enzyme === enzyme).map((s, i) => (
-                        <span key={i} className="px-1.5 py-0.5 text-xs font-mono bg-gray-100 dark:bg-gray-700 rounded">{s.position}</span>
+                        <span key={i} className="px-1.5 py-0.5 text-sm font-mono bg-gray-100 dark:bg-gray-700 rounded">{s.position}</span>
                       ))}
                     </div>
                   </div>
@@ -300,9 +300,9 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
       {tab === 3 && (
         <div className="overflow-x-auto max-h-80 overflow-y-auto">
           {result.changes.length === 0 ? (
-            <p className="text-xs text-stone-400 p-4 text-center font-mono">No changes made</p>
+            <p className="text-sm text-stone-400 p-4 text-center font-mono">No changes made</p>
           ) : (
-            <table className="w-full text-sm">
+            <table className="w-full text-base">
               <thead className="sticky top-0 bg-gray-50 dark:bg-gray-700">
                 <tr className="text-left text-stone-500">
                   <th className="py-2 px-2">Position</th>
@@ -319,7 +319,7 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
                     <td className="py-1 px-2 font-mono font-bold">{c.aminoAcid}</td>
                     <td className="py-1 px-2 font-mono text-red-500">{c.originalCodon}</td>
                     <td className="py-1 px-2 font-mono text-stone-900 dark:text-stone-100">{c.optimizedCodon}</td>
-                    <td className="py-1 px-2 text-xs text-stone-500">{c.reason}</td>
+                    <td className="py-1 px-2 text-sm text-stone-500">{c.reason}</td>
                   </tr>
                 ))}
               </tbody>
@@ -332,38 +332,38 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
         <div className="space-y-3">
           {/* API Key */}
           <div className="flex items-center gap-2 p-2 bg-stone-50 dark:bg-stone-700/50 border border-stone-200 dark:border-stone-600 rounded">
-            <span className="text-[10px] text-stone-400 uppercase tracking-wider whitespace-nowrap">API Key</span>
+            <span className="text-xs text-stone-400 uppercase tracking-wider whitespace-nowrap">API Key</span>
             <input
               type="password"
               value={apiKey}
               onChange={e => setApiKey(e.target.value)}
               placeholder="API Key"
-              className="flex-1 px-2 py-1 text-xs font-mono bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500"
+              className="flex-1 px-2 py-1 text-sm font-mono bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500"
             />
-            {apiKey && <span className="text-[10px] text-stone-400">saved</span>}
+            {apiKey && <span className="text-xs text-stone-400">saved</span>}
           </div>
 
           {/* Action */}
           <div className="flex items-center gap-2">
             {aiStatus === 'loading' ? (
-              <button onClick={stopAI} className="px-3 py-1.5 bg-red-700 text-white text-xs font-medium rounded hover:bg-red-800 transition-colors">
+              <button onClick={stopAI} className="px-3 py-1.5 bg-red-700 text-white text-sm font-medium rounded hover:bg-red-800 transition-colors">
                 Stop
               </button>
             ) : (
               <button
                 onClick={runAI}
                 disabled={!apiKey.trim()}
-                className="px-3 py-1.5 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-xs font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                className="px-3 py-1.5 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-sm font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               >
                 Run AI Analysis
               </button>
             )}
-            <span className="text-[10px] text-stone-400">Analyzes optimization quality, predicts expression, suggests cloning strategy</span>
+            <span className="text-xs text-stone-400">Analyzes optimization quality, predicts expression, suggests cloning strategy</span>
           </div>
 
           {/* Error */}
           {aiError && (
-            <div className="p-2 bg-red-50 dark:bg-red-900/20 border border-red-300 dark:border-red-800 rounded text-xs text-red-600 dark:text-red-400">
+            <div className="p-2 bg-red-50 dark:bg-red-900/20 border border-red-300 dark:border-red-800 rounded text-sm text-red-600 dark:text-red-400">
               {aiError}
             </div>
           )}
@@ -381,7 +381,7 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
           {/* Empty state */}
           {!aiText && aiStatus === 'idle' && !aiError && (
             <div className="p-6 text-center border border-dashed border-stone-300 dark:border-stone-600 rounded">
-              <p className="text-xs text-stone-400">
+              <p className="text-sm text-stone-400">
                 AI analysis will evaluate CAI score, GC content, predict expression level,
                 and suggest optimal vector, tags, and culture conditions for your target organism.
               </p>

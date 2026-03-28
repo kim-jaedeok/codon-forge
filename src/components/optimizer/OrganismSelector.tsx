@@ -9,11 +9,11 @@ interface Props {
 export function OrganismSelector({ value, onChange }: Props) {
   return (
     <div>
-      <label className="block text-sm font-medium text-stone-600 dark:text-stone-400 mb-1">Target Organism</label>
+      <label className="block text-base font-medium text-stone-600 dark:text-stone-400 mb-1">Target Organism</label>
       <select
         value={value}
         onChange={e => onChange(e.target.value as OrganismId)}
-        className="w-full px-3 py-2 text-sm bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500"
+        className="w-full px-3 py-2 text-base bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500"
       >
         <optgroup label="Prokaryotes">
           {ORGANISMS.filter(o => ['ecoli', 'bacillus', 'pseudomonas'].includes(o.id)).map(org => (

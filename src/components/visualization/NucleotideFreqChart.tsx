@@ -12,7 +12,7 @@ export function NucleotideFreqChart({ stats }: { stats: BasicStats }) {
 
   return (
     <div>
-      <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Nucleotide Frequency</h3>
+      <h3 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-2">Nucleotide Frequency</h3>
       <ResponsiveContainer width="100%" height={250}>
         <BarChart data={data}>
           <XAxis dataKey="name" />

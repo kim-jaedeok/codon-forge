@@ -46,7 +46,7 @@ export function SequenceViewer({ sequence }: { sequence: string }) {
 
   return (
     <div>
-      <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+      <h3 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-2">
         Sequence Viewer
         <span className="font-normal text-gray-500 ml-2">({sequence.length.toLocaleString()} bp)</span>
       </h3>
@@ -72,7 +72,7 @@ export function SequenceViewer({ sequence }: { sequence: string }) {
               }}
             >
               <span
-                className="text-gray-400 text-xs select-none"
+                className="text-gray-400 text-sm select-none"
                 style={{ width: 60, fontFamily: 'monospace', textAlign: 'right', paddingRight: 12 }}
               >
                 {(start + 1).toLocaleString()}

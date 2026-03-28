@@ -73,7 +73,7 @@ export function OptimizerPage() {
         <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700">
           <button
             onClick={() => setParamsOpen(!paramsOpen)}
-            className="w-full flex items-center justify-between p-4 text-sm font-semibold text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-700/50 transition-colors"
+            className="w-full flex items-center justify-between p-4 text-base font-semibold text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-700/50 transition-colors"
           >
             <span>Parameters</span>
             <svg className={`w-4 h-4 text-stone-400 transition-transform ${paramsOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -97,7 +97,7 @@ export function OptimizerPage() {
         </div>
 
         <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-4">
-          <h2 className="text-sm font-semibold text-stone-700 dark:text-stone-300 mb-3">Sequence Input</h2>
+          <h2 className="text-base font-semibold text-stone-700 dark:text-stone-300 mb-3">Sequence Input</h2>
           <Tabs tabs={['Single', 'UniProt', 'Batch', 'Custom Table']} active={inputMode} onChange={setInputMode} />
 
           {inputMode === 0 && (
@@ -112,17 +112,17 @@ export function OptimizerPage() {
                   value={uniprotQuery}
                   onChange={e => setUniprotQuery(e.target.value)}
                   placeholder="Protein name or UniProt ID (e.g., human insulin, P01308)"
-                  className="flex-1 px-3 py-2 text-sm bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500"
+                  className="flex-1 px-3 py-2 text-base bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500"
                 />
                 <button
                   type="submit"
                   disabled={!uniprotQuery.trim() || uniprotLoading}
-                  className="px-4 py-2 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-sm font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+                  className="px-4 py-2 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-base font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
                 >
                   {uniprotLoading ? 'Searching...' : 'Search'}
                 </button>
               </form>
-              {uniprotError && <p className="text-xs text-red-500">{uniprotError}</p>}
+              {uniprotError && <p className="text-sm text-red-500">{uniprotError}</p>}
               {uniprotResults.length > 0 && (
                 <div className="space-y-1.5 max-h-48 overflow-y-auto">
                   {uniprotResults.map(r => (
@@ -132,22 +132,22 @@ export function OptimizerPage() {
                     >
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-medium text-stone-800 dark:text-stone-200 truncate">{r.name || r.accession}</span>
-                          <span className="text-[10px] font-mono text-stone-400 shrink-0">{r.accession} | {r.length} aa</span>
+                          <span className="text-base font-medium text-stone-800 dark:text-stone-200 truncate">{r.name || r.accession}</span>
+                          <span className="text-xs font-mono text-stone-400 shrink-0">{r.accession} | {r.length} aa</span>
                         </div>
-                        <p className="text-xs text-stone-500 truncate">{r.organism}</p>
+                        <p className="text-sm text-stone-500 truncate">{r.organism}</p>
                       </div>
                       <div className="flex gap-1 shrink-0">
                         <button
                           onClick={() => { opt.setProtein(r.sequence); setInputMode(0); }}
-                          className="px-2 py-1 text-xs bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 rounded hover:bg-stone-800 dark:hover:bg-stone-300 transition-colors"
+                          className="px-2 py-1 text-sm bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 rounded hover:bg-stone-800 dark:hover:bg-stone-300 transition-colors"
                         >
                           Use
                         </button>
                         <button
                           onClick={() => addToBatch(r)}
                           disabled={batchQueue.some(b => b.name.startsWith(r.accession))}
-                          className="px-2 py-1 text-xs border border-stone-300 dark:border-stone-600 text-stone-600 dark:text-stone-400 rounded hover:bg-stone-100 dark:hover:bg-stone-700 disabled:opacity-30 transition-colors"
+                          className="px-2 py-1 text-sm border border-stone-300 dark:border-stone-600 text-stone-600 dark:text-stone-400 rounded hover:bg-stone-100 dark:hover:bg-stone-700 disabled:opacity-30 transition-colors"
                         >
                           + Batch
                         </button>
@@ -161,12 +161,12 @@ export function OptimizerPage() {
               {batchQueue.length > 0 && (
                 <div className="border-t border-stone-200 dark:border-stone-700 pt-3 space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-stone-600 dark:text-stone-400">Batch Queue ({batchQueue.length})</span>
-                    <button onClick={() => setBatchQueue([])} className="text-[10px] text-stone-400 hover:text-stone-600 underline">Clear</button>
+                    <span className="text-sm font-medium text-stone-600 dark:text-stone-400">Batch Queue ({batchQueue.length})</span>
+                    <button onClick={() => setBatchQueue([])} className="text-xs text-stone-400 hover:text-stone-600 underline">Clear</button>
                   </div>
                   <div className="space-y-1 max-h-24 overflow-y-auto">
                     {batchQueue.map((b, i) => (
-                      <div key={i} className="flex items-center justify-between text-xs text-stone-500 bg-stone-50 dark:bg-stone-700/50 rounded px-2 py-1">
+                      <div key={i} className="flex items-center justify-between text-sm text-stone-500 bg-stone-50 dark:bg-stone-700/50 rounded px-2 py-1">
                         <span className="truncate">{b.name}</span>
                         <button onClick={() => setBatchQueue(prev => prev.filter((_, j) => j !== i))} className="text-stone-400 hover:text-red-500 ml-2 shrink-0">x</button>
                       </div>
@@ -174,7 +174,7 @@ export function OptimizerPage() {
                   </div>
                   <button
                     onClick={runBatchFromQueue}
-                    className="w-full px-4 py-2 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-sm font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 transition-colors"
+                    className="w-full px-4 py-2 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-base font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 transition-colors"
                   >
                     Run Batch ({batchQueue.length} sequences)
                   </button>
@@ -207,32 +207,32 @@ export function OptimizerPage() {
                   input.click();
                 }}
               >
-                <p className="text-sm text-stone-400">Drop FASTA file here or click to browse</p>
-                <p className="text-xs text-stone-300 mt-1">.fasta, .fa, .faa, .txt</p>
+                <p className="text-base text-stone-400">Drop FASTA file here or click to browse</p>
+                <p className="text-sm text-stone-300 mt-1">.fasta, .fa, .faa, .txt</p>
               </div>
               <textarea
                 value={opt.batchInput}
                 onChange={e => opt.setBatchInput(e.target.value)}
                 placeholder={">Protein1\nMVSKGEELFT...\n>Protein2\nMKWVTFISL..."}
-                className="w-full h-28 p-3 text-sm font-mono bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500 resize-y"
+                className="w-full h-28 p-3 text-base font-mono bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500 resize-y"
                 spellCheck={false}
               />
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => opt.batchOptimize()}
                   disabled={!opt.batchInput.trim()}
-                  className="px-4 py-2 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-sm font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                  className="px-4 py-2 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-base font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                 >
                   Run Batch
                 </button>
                 {opt.batchInput && (
-                  <span className="text-xs text-stone-400 font-mono">
+                  <span className="text-sm text-stone-400 font-mono">
                     {(opt.batchInput.match(/>/g) || []).length} sequences
                   </span>
                 )}
               </div>
               {opt.error && (
-                <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-300 dark:border-red-800 rounded text-sm text-red-600 dark:text-red-400">
+                <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-300 dark:border-red-800 rounded text-base text-red-600 dark:text-red-400">
                   {opt.error}
                 </div>
               )}
@@ -241,12 +241,12 @@ export function OptimizerPage() {
 
           {inputMode === 3 && (
             <div className="space-y-3">
-              <p className="text-xs text-stone-500">
+              <p className="text-sm text-stone-500">
                 1. Paste codon frequency table (64 codons, per 1000)
               </p>
               <textarea
                 placeholder="TTT  17.6&#10;TTC  20.3&#10;TTA  7.7&#10;..."
-                className="w-full h-24 p-3 text-sm font-mono bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500 resize-y"
+                className="w-full h-24 p-3 text-base font-mono bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500 resize-y"
                 onChange={e => {
                   const table = parseCustomTable(e.target.value);
                   if (table) {
@@ -256,27 +256,27 @@ export function OptimizerPage() {
                 }}
               />
               {opt.organism === 'custom' && opt.customCodonTable && (
-                <p className="text-xs text-stone-500 font-mono">Custom table loaded (64 codons)</p>
+                <p className="text-sm text-stone-500 font-mono">Custom table loaded (64 codons)</p>
               )}
-              <p className="text-xs text-stone-500">
+              <p className="text-sm text-stone-500">
                 2. Paste protein sequence
               </p>
               <textarea
                 value={opt.protein}
                 onChange={e => opt.setProtein(e.target.value)}
                 placeholder="MVSKGEELFT..."
-                className="w-full h-20 p-3 text-sm font-mono bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500 resize-y"
+                className="w-full h-20 p-3 text-base font-mono bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500 resize-y"
                 spellCheck={false}
               />
               <button
                 onClick={opt.optimize}
                 disabled={!opt.protein.trim() || !opt.customCodonTable}
-                className="px-4 py-2 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-sm font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                className="px-4 py-2 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-base font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               >
                 Run Optimization
               </button>
               {opt.error && (
-                <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-300 dark:border-red-800 rounded text-sm text-red-600 dark:text-red-400">
+                <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-300 dark:border-red-800 rounded text-base text-red-600 dark:text-red-400">
                   {opt.error}
                 </div>
               )}
@@ -292,7 +292,7 @@ export function OptimizerPage() {
             <div>
               <button
                 onClick={() => setSelectedBatch(null)}
-                className="mb-3 flex items-center gap-1 text-sm text-stone-500 hover:text-stone-700 dark:hover:text-stone-300 transition-colors"
+                className="mb-3 flex items-center gap-1 text-base text-stone-500 hover:text-stone-700 dark:hover:text-stone-300 transition-colors"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
                 Back to batch results ({opt.batchResults.length})
@@ -301,7 +301,7 @@ export function OptimizerPage() {
             </div>
           ) : (
             <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-4">
-              <h2 className="text-sm font-semibold text-stone-700 dark:text-stone-300 mb-3">Batch Results ({opt.batchResults.length})</h2>
+              <h2 className="text-base font-semibold text-stone-700 dark:text-stone-300 mb-3">Batch Results ({opt.batchResults.length})</h2>
               <div className="space-y-2">
                 {opt.batchResults.map((b, i) => (
                   <button
@@ -310,12 +310,12 @@ export function OptimizerPage() {
                     className="w-full text-left p-3 bg-stone-50 dark:bg-stone-700/50 rounded border border-stone-100 dark:border-stone-600 hover:border-stone-300 dark:hover:border-stone-500 transition-colors"
                   >
                     <div className="flex items-center justify-between mb-1">
-                      <h3 className="text-sm font-medium text-stone-800 dark:text-stone-200 truncate">{b.name}</h3>
-                      <span className="text-xs text-stone-400 font-mono shrink-0 ml-2">
+                      <h3 className="text-base font-medium text-stone-800 dark:text-stone-200 truncate">{b.name}</h3>
+                      <span className="text-sm text-stone-400 font-mono shrink-0 ml-2">
                         {b.result.inputProtein.length}aa | CAI {b.result.caiAfterOptimization.toFixed(3)} | GC {(b.result.gcContentAfter * 100).toFixed(1)}%
                       </span>
                     </div>
-                    <p className="text-xs text-stone-400">Click to view detailed analysis</p>
+                    <p className="text-sm text-stone-400">Click to view detailed analysis</p>
                   </button>
                 ))}
               </div>
@@ -323,10 +323,10 @@ export function OptimizerPage() {
           )
         ) : (
           <div className="bg-white dark:bg-stone-800 rounded border border-dashed border-stone-300 dark:border-stone-600 p-12 text-center">
-            <p className="text-base text-stone-400 dark:text-stone-500">
+            <p className="text-lg text-stone-400 dark:text-stone-500">
               Enter a protein sequence and click <span className="font-medium text-stone-600 dark:text-stone-300">Run Optimization</span> to generate a codon-optimized DNA sequence.
             </p>
-            <p className="text-sm text-stone-300 dark:text-stone-600 mt-3 font-mono">
+            <p className="text-base text-stone-300 dark:text-stone-600 mt-3 font-mono">
               Protein &rarr; Reverse translate &rarr; CAI optimization &rarr; Constraint repair &rarr; DNA
             </p>
           </div>

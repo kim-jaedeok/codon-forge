@@ -30,7 +30,7 @@ export function ORFMap({ orfs, seqLength }: Props) {
 
   return (
     <div>
-      <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">ORF Map (6 Frames)</h3>
+      <h3 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-2">ORF Map (6 Frames)</h3>
       <div className="overflow-x-auto">
         <svg viewBox={`0 0 ${width} ${height}`} className="w-full" style={{ minWidth: 500 }}>
           {/* Scale bar */}

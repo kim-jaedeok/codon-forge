@@ -11,9 +11,9 @@ export function ApiKeyInput({ value, onChange }: Props) {
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder="API Key"
-        className="flex-1 px-3 py-1.5 text-sm font-mono bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+        className="flex-1 px-3 py-1.5 text-base font-mono bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
       />
-      {value && <span className="text-xs text-green-600">saved</span>}
+      {value && <span className="text-sm text-green-600">saved</span>}
     </div>
   );
 }

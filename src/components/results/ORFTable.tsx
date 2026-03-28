@@ -10,24 +10,24 @@ export function ORFTable({ orfs, minLength, onMinLengthChange }: Props) {
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-3">
-        <label className="text-sm text-gray-600 dark:text-gray-400">Min ORF length:</label>
+        <label className="text-base text-gray-600 dark:text-gray-400">Min ORF length:</label>
         <input
           type="number"
           value={minLength}
           onChange={e => onMinLengthChange(Math.max(30, parseInt(e.target.value) || 100))}
-          className="w-24 px-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800"
+          className="w-24 px-2 py-1 text-base border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800"
           min={30}
           step={10}
         />
-        <span className="text-sm text-gray-500">nt</span>
-        <span className="ml-auto text-sm text-gray-500">{orfs.length} found</span>
+        <span className="text-base text-gray-500">nt</span>
+        <span className="ml-auto text-base text-gray-500">{orfs.length} found</span>
       </div>
 
       {orfs.length === 0 ? (
-        <p className="text-sm text-gray-500 p-4 text-center">No ORFs found matching the criteria.</p>
+        <p className="text-base text-gray-500 p-4 text-center">No ORFs found matching the criteria.</p>
       ) : (
         <div className="overflow-x-auto max-h-80 overflow-y-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-base">
             <thead className="sticky top-0 bg-gray-50 dark:bg-gray-700">
               <tr className="text-left text-gray-500 dark:text-gray-400">
                 <th className="py-2 px-2">#</th>
@@ -56,7 +56,7 @@ export function ORFTable({ orfs, minLength, onMinLengthChange }: Props) {
             </tbody>
           </table>
           {orfs.length > 50 && (
-            <p className="text-xs text-gray-500 p-2 text-center">Showing top 50 of {orfs.length} total</p>
+            <p className="text-sm text-gray-500 p-2 text-center">Showing top 50 of {orfs.length} total</p>
           )}
         </div>
       )}

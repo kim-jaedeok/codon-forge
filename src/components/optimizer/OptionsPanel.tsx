@@ -42,10 +42,10 @@ export function OptionsPanel({
       {/* Restriction enzymes */}
       <div>
         <div className="flex items-center justify-between mb-1.5">
-          <label className="text-sm font-medium text-stone-600 dark:text-stone-400">Restriction Sites to Avoid</label>
+          <label className="text-base font-medium text-stone-600 dark:text-stone-400">Restriction Sites to Avoid</label>
           <div className="flex gap-1">
-            <button onClick={selectAll} className="text-[10px] text-stone-400 hover:text-stone-600 underline">All</button>
-            <button onClick={selectNone} className="text-[10px] text-stone-400 hover:text-stone-600 underline">None</button>
+            <button onClick={selectAll} className="text-xs text-stone-400 hover:text-stone-600 underline">All</button>
+            <button onClick={selectNone} className="text-xs text-stone-400 hover:text-stone-600 underline">None</button>
           </div>
         </div>
         <div className="flex flex-wrap gap-1">
@@ -53,7 +53,7 @@ export function OptionsPanel({
             <button
               key={e.name}
               onClick={() => toggleEnzyme(e.name)}
-              className={`px-2 py-1 text-xs font-mono rounded transition-colors ${
+              className={`px-2 py-1 text-sm font-mono rounded transition-colors ${
                 avoidEnzymes.includes(e.name)
                   ? 'bg-stone-800 dark:bg-stone-200 text-white dark:text-stone-900'
                   : 'bg-stone-100 dark:bg-stone-700 text-stone-400 hover:text-stone-600'
@@ -67,7 +67,7 @@ export function OptionsPanel({
 
       {/* Constraints */}
       <div>
-        <label className="text-sm font-medium text-stone-600 dark:text-stone-400 block mb-1.5">Constraints</label>
+        <label className="text-base font-medium text-stone-600 dark:text-stone-400 block mb-1.5">Constraints</label>
         <div className="space-y-1">
           {[
             { checked: removeRepeats, onChange: onRemoveRepeatsChange, label: 'Remove tandem repeats (>=4)' },
@@ -75,7 +75,7 @@ export function OptionsPanel({
             { checked: avoidSecondaryStructure, onChange: onAvoidSecondaryStructureChange, label: 'Avoid RNA secondary structure (G/C >6bp)' },
             { checked: useCodonHarmony, onChange: onUseCodonHarmonyChange, label: 'Codon harmony (match natural distribution)' },
           ].map(({ checked, onChange, label }) => (
-            <label key={label} className="flex items-center gap-2 text-sm text-stone-600 dark:text-stone-400 cursor-pointer hover:text-stone-800 dark:hover:text-stone-200">
+            <label key={label} className="flex items-center gap-2 text-base text-stone-600 dark:text-stone-400 cursor-pointer hover:text-stone-800 dark:hover:text-stone-200">
               <input type="checkbox" checked={checked} onChange={e => onChange(e.target.checked)} className="rounded-sm w-3.5 h-3.5" />
               {label}
             </label>
@@ -85,14 +85,14 @@ export function OptionsPanel({
 
       {/* UTR */}
       <div className="border-t border-stone-200 dark:border-stone-700 pt-2">
-        <label className="flex items-center gap-2 text-sm text-stone-600 dark:text-stone-400 cursor-pointer hover:text-stone-800 dark:hover:text-stone-200">
+        <label className="flex items-center gap-2 text-base text-stone-600 dark:text-stone-400 cursor-pointer hover:text-stone-800 dark:hover:text-stone-200">
           <input type="checkbox" checked={addUTR} onChange={e => onAddUTRChange(e.target.checked)} className="rounded-sm w-3.5 h-3.5" />
           Add 5'/3' UTR
         </label>
         {addUTR && (
           <div className="mt-1.5 ml-5 flex gap-3">
             {(['prokaryote', 'eukaryote'] as const).map(type => (
-              <label key={type} className="flex items-center gap-1 text-[11px] text-stone-500 cursor-pointer">
+              <label key={type} className="flex items-center gap-1 text-xs text-stone-500 cursor-pointer">
                 <input type="radio" name="utr" checked={utrOrganism === type} onChange={() => onUtrOrganismChange(type)} className="w-3 h-3" />
                 {type === 'prokaryote' ? 'Prokaryotic (SD)' : 'Eukaryotic (Kozak)'}
               </label>

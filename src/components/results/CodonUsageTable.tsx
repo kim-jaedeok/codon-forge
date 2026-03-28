@@ -17,7 +17,7 @@ export function CodonUsageTable({ data }: { data: CodonUsageEntry[] }) {
 
   return (
     <div className="overflow-x-auto max-h-96 overflow-y-auto">
-      <table className="w-full text-xs">
+      <table className="w-full text-sm">
         <thead className="sticky top-0 bg-gray-50 dark:bg-gray-700">
           <tr className="text-left text-gray-500 dark:text-gray-400">
             <th className="py-2 px-2">Amino Acid</th>

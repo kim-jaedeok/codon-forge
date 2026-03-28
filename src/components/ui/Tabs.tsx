@@ -11,7 +11,7 @@ export function Tabs({ tabs, active, onChange }: TabsProps) {
         <button
           key={tab}
           onClick={() => onChange(i)}
-          className={`px-3 py-2 text-sm font-medium border-b-2 -mb-px transition-colors ${
+          className={`px-3 py-2 text-base font-medium border-b-2 -mb-px transition-colors ${
             i === active
               ? 'border-stone-900 dark:border-stone-200 text-stone-900 dark:text-stone-200'
               : 'border-transparent text-stone-400 hover:text-stone-600 dark:hover:text-stone-300'

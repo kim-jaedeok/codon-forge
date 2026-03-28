@@ -17,9 +17,9 @@ export function GCWindowPlot({ data, overallGC, windowSize, onWindowSizeChange }
   return (
     <div>
       <div className="flex items-center justify-between mb-2">
-        <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">GC Content Sliding Window</h3>
+        <h3 className="text-base font-semibold text-gray-700 dark:text-gray-300">GC Content Sliding Window</h3>
         <div className="flex items-center gap-2">
-          <label className="text-xs text-gray-500">Window:</label>
+          <label className="text-sm text-gray-500">Window:</label>
           <input
             type="range"
             min={20}
@@ -29,7 +29,7 @@ export function GCWindowPlot({ data, overallGC, windowSize, onWindowSizeChange }
             onChange={e => onWindowSizeChange(Number(e.target.value))}
             className="w-24"
           />
-          <span className="text-xs text-gray-500 w-12">{windowSize}bp</span>
+          <span className="text-sm text-gray-500 w-12">{windowSize}bp</span>
         </div>
       </div>
       <ResponsiveContainer width="100%" height={250}>

@@ -19,9 +19,9 @@ export function StreamingTextDisplay({ text, isStreaming }: Props) {
       {sections.map((section, i) => (
         <div key={i}>
           {section.title && (
-            <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">{section.title}</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{section.title}</h3>
           )}
-          <div className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
+          <div className="text-base text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
             {section.content}
           </div>
         </div>

@@ -17,9 +17,9 @@ export function MotifSearchPanel({ matches, pattern, onPatternChange, useRegex, 
           value={pattern}
           onChange={e => onPatternChange(e.target.value)}
           placeholder={useRegex ? 'Regex pattern...' : 'DNA motif (IUPAC codes supported)...'}
-          className="flex-1 px-3 py-2 text-sm font-mono bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 px-3 py-2 text-base font-mono bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <label className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-400 cursor-pointer">
+        <label className="flex items-center gap-1.5 text-base text-gray-600 dark:text-gray-400 cursor-pointer">
           <input
             type="checkbox"
             checked={useRegex}
@@ -31,20 +31,20 @@ export function MotifSearchPanel({ matches, pattern, onPatternChange, useRegex, 
       </div>
 
       {!useRegex && (
-        <p className="text-xs text-gray-500">
+        <p className="text-sm text-gray-500">
           IUPAC codes: R=[AG] Y=[CT] S=[GC] W=[AT] K=[GT] M=[AC] N=[ATGC]
         </p>
       )}
 
       {pattern && (
-        <p className="text-sm text-gray-600 dark:text-gray-400">
+        <p className="text-base text-gray-600 dark:text-gray-400">
           {matches.length} matches
         </p>
       )}
 
       {matches.length > 0 && (
         <div className="overflow-x-auto max-h-64 overflow-y-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-base">
             <thead className="sticky top-0 bg-gray-50 dark:bg-gray-700">
               <tr className="text-left text-gray-500">
                 <th className="py-2 px-2">#</th>
@@ -61,7 +61,7 @@ export function MotifSearchPanel({ matches, pattern, onPatternChange, useRegex, 
                   <td className="py-1 px-2 font-mono">{m.strand}</td>
                   <td className="py-1 px-2 text-right font-mono">{m.start.toLocaleString()}</td>
                   <td className="py-1 px-2 text-right font-mono">{m.end.toLocaleString()}</td>
-                  <td className="py-1 px-2 font-mono text-xs">{m.matchedSequence}</td>
+                  <td className="py-1 px-2 font-mono text-sm">{m.matchedSequence}</td>
                 </tr>
               ))}
             </tbody>
