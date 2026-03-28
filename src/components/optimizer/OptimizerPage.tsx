@@ -67,13 +67,13 @@ export function OptimizerPage() {
           )}
 
           {inputMode === 2 && (
-            <div className="space-y-2">
+            <div className="space-y-3">
               <p className="text-xs text-stone-500">
-                Paste codon frequency table (64 codons, per 1000). Format: codon[tab]frequency
+                1. Paste codon frequency table (64 codons, per 1000)
               </p>
               <textarea
                 placeholder="TTT  17.6&#10;TTC  20.3&#10;TTA  7.7&#10;..."
-                className="w-full h-36 p-3 text-sm font-mono bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500 resize-y"
+                className="w-full h-24 p-3 text-sm font-mono bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500 resize-y"
                 onChange={e => {
                   const table = parseCustomTable(e.target.value);
                   if (table) {
@@ -84,6 +84,28 @@ export function OptimizerPage() {
               />
               {opt.organism === 'custom' && opt.customCodonTable && (
                 <p className="text-xs text-stone-500 font-mono">Custom table loaded (64 codons)</p>
+              )}
+              <p className="text-xs text-stone-500">
+                2. Paste protein sequence
+              </p>
+              <textarea
+                value={opt.protein}
+                onChange={e => opt.setProtein(e.target.value)}
+                placeholder="MVSKGEELFT..."
+                className="w-full h-20 p-3 text-sm font-mono bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500 resize-y"
+                spellCheck={false}
+              />
+              <button
+                onClick={opt.optimize}
+                disabled={!opt.protein.trim() || !opt.customCodonTable}
+                className="px-4 py-2 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-sm font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              >
+                Run Optimization
+              </button>
+              {opt.error && (
+                <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-300 dark:border-red-800 rounded text-sm text-red-600 dark:text-red-400">
+                  {opt.error}
+                </div>
               )}
             </div>
           )}
