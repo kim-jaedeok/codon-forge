@@ -1,4 +1,4 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 
 interface Props {
   value: string;
@@ -12,6 +12,15 @@ const EXAMPLE_GFP = 'MVSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLTLKFICTTGKLPVPWP
 export function ProteinInput({ value, onChange, onOptimize, error }: Props) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const cleanLen = value.replace(/[\s\d\n\r>].*\n?/g, '').replace(/[^ACDEFGHIKLMNPQRSTVWY*]/gi, '').length;
+
+  // Restore height on mount (when switching tabs back)
+  useEffect(() => {
+    const el = textareaRef.current;
+    if (el && value) {
+      el.style.height = 'auto';
+      el.style.height = Math.max(80, Math.min(el.scrollHeight, 400)) + 'px';
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     onChange(e.target.value);
