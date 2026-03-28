@@ -141,14 +141,29 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
           {/* Optimized sequence */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-[10px] text-stone-400 uppercase tracking-wider">Optimized DNA Sequence</h3>
-              <div className="flex gap-2">
-                <CopyButton text={result.optimizedDNA} />
-                <button onClick={() => downloadFile(exportFasta(result), 'optimized.fasta')} className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600">FASTA</button>
-                <button onClick={() => downloadFile(exportGenBank(result), 'optimized.gb')} className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600">GenBank</button>
+              <h3 className="text-sm font-semibold text-stone-700 dark:text-stone-300">Optimized DNA Sequence</h3>
+              <div className="flex gap-1.5">
+                <button
+                  onClick={() => { navigator.clipboard.writeText(result.optimizedDNA); }}
+                  className="px-3 py-1.5 text-xs font-medium bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 rounded hover:bg-stone-800 dark:hover:bg-stone-300 transition-colors"
+                >
+                  Copy
+                </button>
+                <button
+                  onClick={() => downloadFile(exportFasta(result), 'optimized.fasta')}
+                  className="px-3 py-1.5 text-xs font-medium border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 rounded hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
+                >
+                  FASTA
+                </button>
+                <button
+                  onClick={() => downloadFile(exportGenBank(result), 'optimized.gb')}
+                  className="px-3 py-1.5 text-xs font-medium border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 rounded hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
+                >
+                  GenBank
+                </button>
               </div>
             </div>
-            <div className="p-3 bg-stone-50 dark:bg-stone-700/50 rounded font-mono text-xs break-all leading-relaxed max-h-48 overflow-y-auto">
+            <div className="p-3 bg-stone-50 dark:bg-stone-700/50 rounded border border-stone-200 dark:border-stone-600 font-mono text-xs break-all leading-relaxed max-h-48 overflow-y-auto">
               {result.optimizedDNA}
             </div>
           </div>
