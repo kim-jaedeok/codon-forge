@@ -1,8 +1,11 @@
 {
-  "name": "dna-analyzer",
-  "private": true,
-  "version": "0.0.0",
+  "name": "codonforge",
+  "version": "1.0.0",
+  "description": "Free codon optimization tool — 15 organisms, restriction avoidance, RNA secondary structure optimization",
   "type": "module",
+  "bin": {
+    "codonforge": "./bin/codonforge.ts"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

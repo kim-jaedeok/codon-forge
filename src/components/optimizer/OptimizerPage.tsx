@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useCodonOptimizer } from '../../hooks/useCodonOptimizer';
 import { ProteinInput } from './ProteinInput';
 import { OrganismSelector } from './OrganismSelector';
@@ -6,6 +6,8 @@ import { OptionsPanel } from './OptionsPanel';
 import { OptimizerResults } from './OptimizerResults';
 import { Tabs } from '../ui/Tabs';
 import type { CodonFrequencyTable } from '../../types/optimizer';
+import { searchUniProt } from '../../lib/uniprotApi';
+import type { UniProtResult } from '../../lib/uniprotApi';
 
 function parseCustomTable(text: string): CodonFrequencyTable | null {
   try {
@@ -31,6 +33,24 @@ export function OptimizerPage() {
   const opt = useCodonOptimizer();
   const [inputMode, setInputMode] = useState(0);
   const [paramsOpen, setParamsOpen] = useState(true);
+  const [uniprotQuery, setUniprotQuery] = useState('');
+  const [uniprotResults, setUniprotResults] = useState<UniProtResult[]>([]);
+  const [uniprotLoading, setUniprotLoading] = useState(false);
+  const [uniprotError, setUniprotError] = useState('');
+
+  const handleUniprotSearch = useCallback(async () => {
+    if (!uniprotQuery.trim()) return;
+    setUniprotLoading(true);
+    setUniprotError('');
+    try {
+      const results = await searchUniProt(uniprotQuery);
+      setUniprotResults(results);
+      if (results.length === 0) setUniprotError('No results found.');
+    } catch (e) {
+      setUniprotError(e instanceof Error ? e.message : 'Search failed');
+    }
+    setUniprotLoading(false);
+  }, [uniprotQuery]);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[minmax(340px,1fr)_2fr] gap-6">
@@ -63,13 +83,56 @@ export function OptimizerPage() {
 
         <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-4">
           <h2 className="text-sm font-semibold text-stone-700 dark:text-stone-300 mb-3">Sequence Input</h2>
-          <Tabs tabs={['Single', 'Batch', 'Custom Table']} active={inputMode} onChange={setInputMode} />
+          <Tabs tabs={['Single', 'UniProt', 'Batch', 'Custom Table']} active={inputMode} onChange={setInputMode} />
 
           {inputMode === 0 && (
             <ProteinInput value={opt.protein} onChange={opt.setProtein} onOptimize={opt.optimize} error={opt.error} />
           )}
 
           {inputMode === 1 && (
+            <div className="space-y-3">
+              <form onSubmit={e => { e.preventDefault(); handleUniprotSearch(); }} className="flex gap-2">
+                <input
+                  type="text"
+                  value={uniprotQuery}
+                  onChange={e => setUniprotQuery(e.target.value)}
+                  placeholder="Protein name or UniProt ID (e.g., human insulin, P01308)"
+                  className="flex-1 px-3 py-2 text-sm bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500"
+                />
+                <button
+                  type="submit"
+                  disabled={!uniprotQuery.trim() || uniprotLoading}
+                  className="px-4 py-2 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-sm font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+                >
+                  {uniprotLoading ? 'Searching...' : 'Search'}
+                </button>
+              </form>
+              {uniprotError && <p className="text-xs text-red-500">{uniprotError}</p>}
+              {uniprotResults.length > 0 && (
+                <div className="space-y-1.5 max-h-48 overflow-y-auto">
+                  {uniprotResults.map(r => (
+                    <button
+                      key={r.accession}
+                      onClick={() => {
+                        opt.setProtein(r.sequence);
+                        setUniprotResults([]);
+                        setInputMode(0);
+                      }}
+                      className="w-full text-left p-2 rounded border border-stone-200 dark:border-stone-600 hover:bg-stone-50 dark:hover:bg-stone-700 transition-colors"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium text-stone-800 dark:text-stone-200">{r.name || r.accession}</span>
+                        <span className="text-[10px] font-mono text-stone-400">{r.accession} | {r.length} aa</span>
+                      </div>
+                      <p className="text-xs text-stone-500 mt-0.5">{r.organism}</p>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {inputMode === 2 && (
             <div className="space-y-2">
               <textarea
                 value={opt.batchInput}
@@ -93,7 +156,7 @@ export function OptimizerPage() {
             </div>
           )}
 
-          {inputMode === 2 && (
+          {inputMode === 3 && (
             <div className="space-y-3">
               <p className="text-xs text-stone-500">
                 1. Paste codon frequency table (64 codons, per 1000)
