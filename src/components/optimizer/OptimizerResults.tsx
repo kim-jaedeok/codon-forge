@@ -176,7 +176,7 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
                 </button>
               </div>
             </div>
-            <div className="p-3 bg-stone-50 dark:bg-stone-700/50 rounded border border-stone-200 dark:border-stone-600 font-mono text-sm leading-relaxed max-h-64 overflow-y-auto">
+            <div className="p-3 bg-stone-50 dark:bg-stone-700/50 rounded border border-stone-200 dark:border-stone-600 font-mono text-sm leading-relaxed">
               {formatSequence(result.optimizedDNA).map((line, i) => (
                 <div key={i} className="flex">
                   <span className="text-stone-400 select-none w-12 shrink-0 text-right mr-3">{line.num}</span>
