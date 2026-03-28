@@ -37,7 +37,7 @@ export function OptimizerPage() {
         <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-4">
           <h2 className="text-sm font-semibold text-stone-700 dark:text-stone-300 mb-3">Sequence Input</h2>
           <Tabs tabs={['Single', 'Batch', 'Custom Table']} active={inputMode} onChange={setInputMode} />
-
+          <div className="min-h-[240px]">
           {inputMode === 0 && (
             <ProteinInput value={opt.protein} onChange={opt.setProtein} onOptimize={opt.optimize} error={opt.error} />
           )}
@@ -87,6 +87,7 @@ export function OptimizerPage() {
               )}
             </div>
           )}
+          </div>
         </div>
 
         <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-4 space-y-4">
