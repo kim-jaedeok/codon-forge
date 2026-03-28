@@ -32,8 +32,8 @@ export function OptimizerPage() {
   const [inputMode, setInputMode] = useState(0); // 0=single, 1=batch, 2=custom table
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <div className="lg:col-span-1 space-y-4">
+    <div className="grid grid-cols-1 lg:grid-cols-[minmax(340px,1fr)_2fr] gap-6">
+      <div className="space-y-4">
         <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-4">
           <h2 className="text-sm font-semibold text-stone-700 dark:text-stone-300 mb-3">Sequence Input</h2>
           <Tabs tabs={['Single', 'Batch', 'Custom Table']} active={inputMode} onChange={setInputMode} />
@@ -103,7 +103,7 @@ export function OptimizerPage() {
           />
         </div>
       </div>
-      <div className="lg:col-span-2">
+      <div>
         {opt.result ? (
           <OptimizerResults result={opt.result} organism={opt.organism} />
         ) : opt.batchResults.length > 0 ? (

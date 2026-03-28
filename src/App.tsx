@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Header />
-      <main className="max-w-7xl mx-auto px-4 py-6">
+      <main className="px-6 py-6">
         <OptimizerPage />
       </main>
     </div>
