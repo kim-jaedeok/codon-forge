@@ -3,6 +3,8 @@
 ![CodonForge](https://dna-analyzer-mu.vercel.app/og-image.png)
 
 > **Live:** [https://dna-analyzer-mu.vercel.app](https://dna-analyzer-mu.vercel.app)
+>
+> **[한국어 버전 (Korean)](#한국어-korean)**
 
 CodonForge is a free, browser-based codon optimization tool that converts protein sequences into DNA sequences optimized for expression in a target organism. No signup, no installation, no server — everything runs in your browser.
 
@@ -313,6 +315,87 @@ No backend. No database. No user accounts. Everything runs in the browser.
 ## License
 
 MIT
+
+---
+
+## 한국어 (Korean)
+
+### CodonForge — 무료 코돈 최적화 도구
+
+> **바로 사용:** [https://dna-analyzer-mu.vercel.app](https://dna-analyzer-mu.vercel.app)
+
+CodonForge는 단백질 서열을 목표 유기체에 최적화된 DNA 서열로 변환하는 무료 웹 도구입니다. 회원가입, 설치, 서버 없이 브라우저에서 바로 사용할 수 있습니다.
+
+### 코돈 최적화란?
+
+모든 생물은 같은 20개 아미노산을 사용하지만, DNA 코돈 사용 빈도는 유기체마다 다릅니다. 한 유기체의 유전자를 다른 유기체에서 발현할 때, 숙주 세포가 잘 사용하지 않는 코돈 때문에 단백질 발현이 실패하거나 수율이 극히 낮아질 수 있습니다.
+
+코돈 최적화는 단백질 서열을 바꾸지 않으면서, 목표 유기체가 선호하는 동의 코돈으로 교체하는 과정입니다. 이는 재조합 단백질 생산, mRNA 백신 개발, 유전자 치료, 합성생물학, 농업 생명공학에서 필수적인 단계입니다.
+
+### 왜 CodonForge를 만들었나?
+
+기존 코돈 최적화 도구(IDT, GenScript, Thermo Fisher)는 회원가입이나 유료 구독을 요구합니다. CodonForge는 이 진입 장벽을 제거합니다.
+
+| 기존 도구 | CodonForge |
+|---|---|
+| 회원가입 필요 | 회원가입 없음 |
+| 유료 또는 제한적 무료 | 완전 무료 |
+| 비공개 소스 | 오픈소스 |
+| 서버에 데이터 전송 | 브라우저에서 로컬 실행 |
+
+### 주요 기능
+
+- **15종 유기체** — 대장균, 효모, 인간, 마우스, CHO, 제브라피시, 옥수수 등
+- **CAI 최대화** — Kazusa 데이터베이스 기반 코돈 적응 지수 최적화
+- **제한효소 부위 회피** — 20종 제한효소 인식 서열 자동 제거
+- **RNA 이차구조 회피** — G/C 연속 6bp 이상 자동 수정
+- **반복 서열 제거** — 코돈 연속 반복, 단일염기 반복 제거
+- **GC 함량 조절** — 유기체별 적정 범위로 자동 조정
+- **코돈 하모니** — 자연적 코돈 분포 모방 (선택)
+- **5'/3' UTR 추가** — Kozak (진핵) 또는 Shine-Dalgarno (원핵) 자동 삽입
+- **배치 처리** — 여러 단백질 동시 최적화 (FASTA)
+- **커스텀 코돈 테이블** — 사용자 정의 코돈 빈도 업로드
+- **FASTA / GenBank 내보내기**
+- **AI 발현 전략 분석** — Claude API 기반 발현 예측 및 실험 제안
+
+### 최적화 전후 비교
+
+| 단백질 | 원본 → 목표 | 최적화 전 CAI | 최적화 후 CAI | 개선 |
+|---|---|---|---|---|
+| Spike RBD | 바이러스 → 인간 | 0.812 | **0.993** | +18 pts |
+| GFP | 해파리 → 대장균 | 0.691 | **0.979** | +29 pts |
+| Cas9 | 세균 → 옥수수 | 0.761 | **0.999** | +24 pts |
+
+GFP의 경우 CAI가 0.691에서 0.979로 상승하며, 이는 발현량 10-100배 증가에 해당합니다 ([Gustafsson et al., 2004](https://doi.org/10.1016/j.tibtech.2004.04.006)).
+
+### 실제 연구 사례
+
+1. **COVID-19 mRNA 백신** — SARS-CoV-2 Spike RBD를 인간 세포에서 발현. Pfizer/BioNTech, Moderna가 동일 원리 사용 ([Xia, 2021](https://doi.org/10.3390/vaccines9070734))
+2. **GFP 리포터** — 해파리 유래 GFP를 대장균에서 고발현 ([Tsien, 1998](https://doi.org/10.1146/annurev.biochem.67.1.509))
+3. **재조합 인슐린** — 인간 프로인슐린을 Pichia pastoris에서 생산 ([Polez et al., 2016](https://doi.org/10.1371/journal.pone.0167207))
+4. **CRISPR Cas9** — 세균 Cas9을 옥수수에서 발현하여 유전체 편집 ([Svitashev et al., 2015](https://doi.org/10.1104/pp.15.00793))
+5. **Herceptin 항체** — Trastuzumab 경쇄를 CHO 세포에서 생산 ([Kunert & Reinhart, 2016](https://doi.org/10.1007/s00253-016-7388-9))
+
+### 현업의 어려움과 해결
+
+| 어려움 | CodonForge의 해결 |
+|---|---|
+| 도구 접근성 (유료/회원가입) | 완전 무료, 브라우저 실행 |
+| 블랙박스 알고리즘 | 모든 변경 사항과 사유를 투명하게 표시 |
+| 다중 제약 조건 동시 처리 어려움 | 반복적 수리 알고리즘으로 모든 제약 동시 만족 |
+| 비주류 유기체 미지원 | 15종 + 커스텀 테이블 업로드 |
+| 실험 워크플로우 통합 | FASTA/GenBank 내보내기, UTR 자동 추가 |
+
+### 시작하기
+
+```bash
+git clone https://github.com/kim-jaedeok/codon-forge.git
+cd codon-forge
+npm install
+npm run dev
+```
+
+또는 [https://dna-analyzer-mu.vercel.app](https://dna-analyzer-mu.vercel.app) 에서 바로 사용하세요.
 
 ---
 
