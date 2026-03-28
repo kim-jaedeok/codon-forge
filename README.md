@@ -126,6 +126,9 @@ Codon optimization tools exist, but they all have significant barriers:
 
 Both Pfizer/BioNTech and Moderna used codon optimization as a critical step in their mRNA vaccine development. The viral sequence had to be recoded using human-preferred codons to ensure efficient translation in human cells.
 
+- Xia, X. (2021). *Detailed Dissection and Critical Evaluation of the Pfizer/BioNTech and Moderna mRNA Vaccines.* Vaccines, 9(7), 734. [DOI: 10.3390/vaccines9070734](https://doi.org/10.3390/vaccines9070734)
+- Spike RBD sequence: [UniProt P0DTC2](https://www.uniprot.org/uniprot/P0DTC2) (positions 319–541)
+
 **CodonForge result:**
 - Input: Spike RBD (223 amino acids)
 - Target: H. sapiens
@@ -137,6 +140,9 @@ Both Pfizer/BioNTech and Moderna used codon optimization as a critical step in t
 **Challenge:** Express GFP at high levels in E. coli for use as a fluorescent reporter.
 
 GFP originates from jellyfish (*Aequorea victoria*), whose codon usage is very different from E. coli. Without optimization, GFP expression in E. coli is 10-100x lower.
+
+- Tsien, R.Y. (1998). *The Green Fluorescent Protein.* Annual Review of Biochemistry, 67, 509–544. [DOI: 10.1146/annurev.biochem.67.1.509](https://doi.org/10.1146/annurev.biochem.67.1.509)
+- eGFP sequence: [GenBank U55762](https://www.ncbi.nlm.nih.gov/nuccore/U55762)
 
 **CodonForge result:**
 - Input: Enhanced GFP (239 amino acids)
@@ -150,6 +156,9 @@ GFP originates from jellyfish (*Aequorea victoria*), whose codon usage is very d
 
 Insulin is the most widely used biopharmaceutical. Pichia pastoris is a preferred host for secreted protein production, but requires codon optimization of the human insulin gene.
 
+- Polez, S. et al. (2016). *A Simplified and Efficient Process for Insulin Production in Pichia pastoris.* PLOS ONE, 11(12), e0167207. [DOI: 10.1371/journal.pone.0167207](https://doi.org/10.1371/journal.pone.0167207)
+- Human insulin: [UniProt P01308](https://www.uniprot.org/uniprot/P01308)
+
 **CodonForge result:**
 - Input: Human proinsulin (86 amino acids)
 - Target: P. pastoris
@@ -162,6 +171,9 @@ Insulin is the most widely used biopharmaceutical. Pichia pastoris is a preferre
 
 Cas9 is a bacterial protein (from S. pyogenes) with very different codon usage from plants. Plant-optimized Cas9 shows 5-10x higher editing efficiency compared to the native bacterial sequence.
 
+- Svitashev, S. et al. (2015). *Targeted Mutagenesis, Precise Gene Editing, and Site-Specific Gene Insertion in Maize Using Cas9 and Guide RNA.* Plant Physiology, 169(2), 931–945. [DOI: 10.1104/pp.15.00793](https://doi.org/10.1104/pp.15.00793)
+- SpCas9: [UniProt Q99ZW2](https://www.uniprot.org/uniprot/Q99ZW2)
+
 **CodonForge result:**
 - Input: SpCas9 N-terminal domain (361 amino acids)
 - Target: Z. mays (corn)
@@ -173,6 +185,9 @@ Cas9 is a bacterial protein (from S. pyogenes) with very different codon usage f
 **Challenge:** Produce Trastuzumab (Herceptin) light chain in CHO cells for cancer therapy.
 
 CHO (Chinese Hamster Ovary) cells are the industry standard for antibody production. Codon optimization is essential for high-yield manufacturing of therapeutic antibodies.
+
+- Kunert, R. & Reinhart, D. (2016). *Advances in recombinant antibody manufacturing.* Applied Microbiology and Biotechnology, 100(8), 3451–3461. [DOI: 10.1007/s00253-016-7388-9](https://doi.org/10.1007/s00253-016-7388-9)
+- Trastuzumab: [DrugBank DB00072](https://go.drugbank.com/drugs/DB00072)
 
 **CodonForge result:**
 - Input: Trastuzumab light chain (214 amino acids)
