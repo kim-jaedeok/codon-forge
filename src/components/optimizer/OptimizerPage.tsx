@@ -29,23 +29,36 @@ function parseCustomTable(text: string): CodonFrequencyTable | null {
 
 export function OptimizerPage() {
   const opt = useCodonOptimizer();
-  const [inputMode, setInputMode] = useState(0); // 0=single, 1=batch, 2=custom table
+  const [inputMode, setInputMode] = useState(0);
+  const [paramsOpen, setParamsOpen] = useState(true);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[minmax(340px,1fr)_2fr] gap-6">
       <div className="space-y-4">
-        <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-4 space-y-4">
-          <h2 className="text-sm font-semibold text-stone-700 dark:text-stone-300">Parameters</h2>
-          <OrganismSelector value={opt.organism} onChange={opt.setOrganism} />
-          <OptionsPanel
-            avoidEnzymes={opt.avoidEnzymes} onAvoidEnzymesChange={opt.setAvoidEnzymes}
-            removeRepeats={opt.removeRepeats} onRemoveRepeatsChange={opt.setRemoveRepeats}
-            avoidHomopolymers={opt.avoidHomopolymers} onAvoidHomopolymersChange={opt.setAvoidHomopolymers}
-            avoidSecondaryStructure={opt.avoidSecondaryStructure} onAvoidSecondaryStructureChange={opt.setAvoidSecondaryStructure}
-            useCodonHarmony={opt.useCodonHarmony} onUseCodonHarmonyChange={opt.setUseCodonHarmony}
-            addUTR={opt.addUTR} onAddUTRChange={opt.setAddUTR}
-            utrOrganism={opt.utrOrganism} onUtrOrganismChange={opt.setUtrOrganism}
-          />
+        <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700">
+          <button
+            onClick={() => setParamsOpen(!paramsOpen)}
+            className="w-full flex items-center justify-between p-4 text-sm font-semibold text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-700/50 transition-colors"
+          >
+            <span>Parameters</span>
+            <svg className={`w-4 h-4 text-stone-400 transition-transform ${paramsOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          {paramsOpen && (
+            <div className="px-4 pb-4 space-y-4 border-t border-stone-100 dark:border-stone-700 pt-3">
+              <OrganismSelector value={opt.organism} onChange={opt.setOrganism} />
+              <OptionsPanel
+                avoidEnzymes={opt.avoidEnzymes} onAvoidEnzymesChange={opt.setAvoidEnzymes}
+                removeRepeats={opt.removeRepeats} onRemoveRepeatsChange={opt.setRemoveRepeats}
+                avoidHomopolymers={opt.avoidHomopolymers} onAvoidHomopolymersChange={opt.setAvoidHomopolymers}
+                avoidSecondaryStructure={opt.avoidSecondaryStructure} onAvoidSecondaryStructureChange={opt.setAvoidSecondaryStructure}
+                useCodonHarmony={opt.useCodonHarmony} onUseCodonHarmonyChange={opt.setUseCodonHarmony}
+                addUTR={opt.addUTR} onAddUTRChange={opt.setAddUTR}
+                utrOrganism={opt.utrOrganism} onUtrOrganismChange={opt.setUtrOrganism}
+              />
+            </div>
+          )}
         </div>
 
         <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-4">
