@@ -1,5 +1,7 @@
 # CodonForge — Free Codon Optimization Tool
 
+![CodonForge](https://dna-analyzer-mu.vercel.app/og-image.png)
+
 > **Live:** [https://dna-analyzer-mu.vercel.app](https://dna-analyzer-mu.vercel.app)
 
 CodonForge is a free, browser-based codon optimization tool that converts protein sequences into DNA sequences optimized for expression in a target organism. No signup, no installation, no server — everything runs in your browser.
