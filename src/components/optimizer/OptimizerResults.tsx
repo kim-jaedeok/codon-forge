@@ -180,7 +180,15 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
               {formatSequence(result.optimizedDNA).map((line, i) => (
                 <div key={i} className="flex">
                   <span className="text-stone-400 select-none w-12 shrink-0 text-right mr-3">{line.num}</span>
-                  <span className="text-stone-700 dark:text-stone-300">{line.chunks}</span>
+                  <span>{line.chunks.split('').map((ch, j) => (
+                    ch === ' ' ? <span key={j}> </span> :
+                    <span key={j} className={
+                      ch === 'a' ? 'text-green-600' :
+                      ch === 't' ? 'text-red-500' :
+                      ch === 'g' ? 'text-amber-500' :
+                      ch === 'c' ? 'text-blue-500' : 'text-stone-400'
+                    }>{ch}</span>
+                  ))}</span>
                 </div>
               ))}
             </div>
