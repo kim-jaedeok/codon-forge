@@ -197,6 +197,28 @@ CHO (Chinese Hamster Ovary) cells are the industry standard for antibody product
 - Output: 666 bp (with Kozak + PolyA UTR)
 - CAI: **0.996** | GC: 63.4% | 6 changes | 0 warnings
 
+### Before vs After: Measured Impact
+
+The following table shows the Codon Adaptation Index (CAI) of the **native source organism's codons** when measured against the **target organism**, compared with CodonForge-optimized codons. Higher CAI correlates with higher protein expression levels.
+
+| Protein | Source → Target | Native CAI | Optimized CAI | CAI Gain | GC Before → After |
+|---------|----------------|-----------|---------------|----------|-------------------|
+| Spike RBD | Virus → Human | 0.812 | **0.993** | +18 pts | 53.1% → 59.0% |
+| GFP | Jellyfish → E. coli | 0.691 | **0.979** | +29 pts | 61.1% → 49.5% |
+| Cas9 | S. pyogenes → Corn | 0.761 | **0.999** | +24 pts | 49.1% → 57.5% |
+| Proinsulin | Human → Pichia | — | **0.891** | — | — → 40.3% |
+| Trastuzumab | Hybridoma → CHO | — | **0.996** | — | — → 63.4% |
+
+**Key observations:**
+
+- **GFP in E. coli** shows the largest CAI improvement (+29 points). Native jellyfish codons are extremely poorly adapted to E. coli — this explains why unoptimized GFP expresses at very low levels in bacteria. Published studies report 10-100x expression increase after codon optimization ([Gustafsson et al., 2004](https://doi.org/10.1016/j.tibtech.2004.04.006)).
+
+- **GC content correction** is equally important. Native GFP has 61.1% GC when using eukaryotic codons, but E. coli prefers ~50%. CodonForge adjusted GC from 61.1% to 49.5% — within the optimal range for E. coli.
+
+- **Cas9 in corn** achieves near-perfect CAI (0.999) because the optimization algorithm can fully exploit the large number of synonymous codons. The GC shift from 49.1% to 57.5% matches the high-GC preference of monocot plants.
+
+- All optimizations maintained **0 constraint violations** (no restriction sites in selected enzymes, no tandem repeats, no homopolymers, no RNA secondary structure hotspots) — except proinsulin in Pichia (1 warning due to the limited synonymous codon options for the short sequence).
+
 ---
 
 ## 5. Industry Challenges and How CodonForge Helps
