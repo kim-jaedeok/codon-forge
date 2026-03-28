@@ -38,6 +38,7 @@ export function OptimizerPage() {
   const [uniprotLoading, setUniprotLoading] = useState(false);
   const [uniprotError, setUniprotError] = useState('');
   const [batchQueue, setBatchQueue] = useState<{ name: string; sequence: string }[]>([]);
+  const [selectedBatch, setSelectedBatch] = useState<number | null>(null);
 
   const handleUniprotSearch = useCallback(async () => {
     if (!uniprotQuery.trim()) return;
@@ -287,33 +288,39 @@ export function OptimizerPage() {
         {opt.result ? (
           <OptimizerResults result={opt.result} organism={opt.organism} />
         ) : opt.batchResults.length > 0 ? (
-          <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-4">
-            <h2 className="text-xs font-medium text-stone-500 dark:text-stone-400 uppercase tracking-wider mb-3">Batch Results ({opt.batchResults.length})</h2>
-            <div className="space-y-2">
-              {opt.batchResults.map((b, i) => (
-                <div key={i} className="p-2 bg-stone-50 dark:bg-stone-700/50 rounded border border-stone-100 dark:border-stone-600">
-                  <div className="flex items-center justify-between mb-1">
-                    <h3 className="text-xs font-semibold text-stone-800 dark:text-stone-200 font-mono">{b.name}</h3>
-                    <span className="text-[10px] text-stone-400 font-mono">
-                      {b.result.inputProtein.length}aa | {b.result.optimizedDNA.length}bp | CAI {b.result.caiAfterOptimization.toFixed(3)} | GC {(b.result.gcContentAfter * 100).toFixed(1)}%
-                    </span>
-                  </div>
-                  <div className="font-mono text-[10px] break-all max-h-16 overflow-y-auto text-stone-500 dark:text-stone-400 leading-relaxed">
-                    {b.result.optimizedDNA.substring(0, 200)}{b.result.optimizedDNA.length > 200 ? '...' : ''}
-                  </div>
-                  <button
-                    onClick={() => {
-                      const fasta = `>${b.name}_optimized\n${b.result.optimizedDNA.match(/.{1,80}/g)?.join('\n')}`;
-                      navigator.clipboard.writeText(fasta);
-                    }}
-                    className="mt-1 px-2 py-0.5 text-[10px] text-stone-500 border border-stone-200 dark:border-stone-600 rounded hover:bg-stone-100 dark:hover:bg-stone-600 transition-colors"
-                  >
-                    Copy FASTA
-                  </button>
-                </div>
-              ))}
+          selectedBatch !== null && opt.batchResults[selectedBatch] ? (
+            <div>
+              <button
+                onClick={() => setSelectedBatch(null)}
+                className="mb-3 flex items-center gap-1 text-sm text-stone-500 hover:text-stone-700 dark:hover:text-stone-300 transition-colors"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+                Back to batch results ({opt.batchResults.length})
+              </button>
+              <OptimizerResults result={opt.batchResults[selectedBatch].result} organism={opt.organism} />
             </div>
-          </div>
+          ) : (
+            <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-4">
+              <h2 className="text-sm font-semibold text-stone-700 dark:text-stone-300 mb-3">Batch Results ({opt.batchResults.length})</h2>
+              <div className="space-y-2">
+                {opt.batchResults.map((b, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setSelectedBatch(i)}
+                    className="w-full text-left p-3 bg-stone-50 dark:bg-stone-700/50 rounded border border-stone-100 dark:border-stone-600 hover:border-stone-300 dark:hover:border-stone-500 transition-colors"
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <h3 className="text-sm font-medium text-stone-800 dark:text-stone-200 truncate">{b.name}</h3>
+                      <span className="text-xs text-stone-400 font-mono shrink-0 ml-2">
+                        {b.result.inputProtein.length}aa | CAI {b.result.caiAfterOptimization.toFixed(3)} | GC {(b.result.gcContentAfter * 100).toFixed(1)}%
+                      </span>
+                    </div>
+                    <p className="text-xs text-stone-400">Click to view detailed analysis</p>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )
         ) : (
           <div className="bg-white dark:bg-stone-800 rounded border border-dashed border-stone-300 dark:border-stone-600 p-12 text-center">
             <p className="text-base text-stone-400 dark:text-stone-500">
