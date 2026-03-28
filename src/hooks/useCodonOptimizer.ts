@@ -55,9 +55,10 @@ export function useCodonOptimizer() {
     }
   }, [protein, organism, gcTarget, avoidEnzymes, removeRepeats, avoidHomopolymers, avoidSecondaryStructure, useCodonHarmony, addUTR, utrOrganism, customCodonTable]);
 
-  const batchOptimize = useCallback(() => {
+  const batchOptimize = useCallback((overrideInput?: string) => {
     setError(null);
-    const entries = batchInput.split(/>/).filter(Boolean).map(entry => {
+    const input = overrideInput || batchInput;
+    const entries = input.split(/>/).filter(Boolean).map(entry => {
       const lines = entry.trim().split('\n');
       const name = lines[0].trim();
       const seq = lines.slice(1).join('').replace(/[\s\d]/g, '').replace(/[^ACDEFGHIKLMNPQRSTVWY*]/gi, '').toUpperCase().replace(/\*$/, '');

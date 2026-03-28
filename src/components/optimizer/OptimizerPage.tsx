@@ -37,6 +37,7 @@ export function OptimizerPage() {
   const [uniprotResults, setUniprotResults] = useState<UniProtResult[]>([]);
   const [uniprotLoading, setUniprotLoading] = useState(false);
   const [uniprotError, setUniprotError] = useState('');
+  const [batchQueue, setBatchQueue] = useState<{ name: string; sequence: string }[]>([]);
 
   const handleUniprotSearch = useCallback(async () => {
     if (!uniprotQuery.trim()) return;
@@ -51,6 +52,19 @@ export function OptimizerPage() {
     }
     setUniprotLoading(false);
   }, [uniprotQuery]);
+
+  const addToBatch = useCallback((r: UniProtResult) => {
+    setBatchQueue(prev => {
+      if (prev.some(p => p.name === r.accession)) return prev;
+      return [...prev, { name: `${r.accession} ${r.name} [${r.organism}]`, sequence: r.sequence }];
+    });
+  }, []);
+
+  const runBatchFromQueue = useCallback(() => {
+    const fasta = batchQueue.map(b => `>${b.name}\n${b.sequence}`).join('\n');
+    opt.setBatchInput(fasta);
+    opt.batchOptimize(fasta);
+  }, [batchQueue, opt]);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[minmax(340px,1fr)_2fr] gap-6">
@@ -111,22 +125,58 @@ export function OptimizerPage() {
               {uniprotResults.length > 0 && (
                 <div className="space-y-1.5 max-h-48 overflow-y-auto">
                   {uniprotResults.map(r => (
-                    <button
+                    <div
                       key={r.accession}
-                      onClick={() => {
-                        opt.setProtein(r.sequence);
-                        setUniprotResults([]);
-                        setInputMode(0);
-                      }}
-                      className="w-full text-left p-2 rounded border border-stone-200 dark:border-stone-600 hover:bg-stone-50 dark:hover:bg-stone-700 transition-colors"
+                      className="flex items-center gap-2 p-2 rounded border border-stone-200 dark:border-stone-600 hover:bg-stone-50 dark:hover:bg-stone-700 transition-colors"
                     >
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-stone-800 dark:text-stone-200">{r.name || r.accession}</span>
-                        <span className="text-[10px] font-mono text-stone-400">{r.accession} | {r.length} aa</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium text-stone-800 dark:text-stone-200 truncate">{r.name || r.accession}</span>
+                          <span className="text-[10px] font-mono text-stone-400 shrink-0">{r.accession} | {r.length} aa</span>
+                        </div>
+                        <p className="text-xs text-stone-500 truncate">{r.organism}</p>
                       </div>
-                      <p className="text-xs text-stone-500 mt-0.5">{r.organism}</p>
-                    </button>
+                      <div className="flex gap-1 shrink-0">
+                        <button
+                          onClick={() => { opt.setProtein(r.sequence); setInputMode(0); }}
+                          className="px-2 py-1 text-xs bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 rounded hover:bg-stone-800 dark:hover:bg-stone-300 transition-colors"
+                        >
+                          Use
+                        </button>
+                        <button
+                          onClick={() => addToBatch(r)}
+                          disabled={batchQueue.some(b => b.name.startsWith(r.accession))}
+                          className="px-2 py-1 text-xs border border-stone-300 dark:border-stone-600 text-stone-600 dark:text-stone-400 rounded hover:bg-stone-100 dark:hover:bg-stone-700 disabled:opacity-30 transition-colors"
+                        >
+                          + Batch
+                        </button>
+                      </div>
+                    </div>
                   ))}
+                </div>
+              )}
+
+              {/* Batch queue */}
+              {batchQueue.length > 0 && (
+                <div className="border-t border-stone-200 dark:border-stone-700 pt-3 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-medium text-stone-600 dark:text-stone-400">Batch Queue ({batchQueue.length})</span>
+                    <button onClick={() => setBatchQueue([])} className="text-[10px] text-stone-400 hover:text-stone-600 underline">Clear</button>
+                  </div>
+                  <div className="space-y-1 max-h-24 overflow-y-auto">
+                    {batchQueue.map((b, i) => (
+                      <div key={i} className="flex items-center justify-between text-xs text-stone-500 bg-stone-50 dark:bg-stone-700/50 rounded px-2 py-1">
+                        <span className="truncate">{b.name}</span>
+                        <button onClick={() => setBatchQueue(prev => prev.filter((_, j) => j !== i))} className="text-stone-400 hover:text-red-500 ml-2 shrink-0">x</button>
+                      </div>
+                    ))}
+                  </div>
+                  <button
+                    onClick={runBatchFromQueue}
+                    className="w-full px-4 py-2 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-sm font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 transition-colors"
+                  >
+                    Run Batch ({batchQueue.length} sequences)
+                  </button>
                 </div>
               )}
             </div>
@@ -134,20 +184,52 @@ export function OptimizerPage() {
 
           {inputMode === 2 && (
             <div className="space-y-2">
+              {/* File drop zone */}
+              <div
+                className="border-2 border-dashed border-stone-300 dark:border-stone-600 rounded p-4 text-center cursor-pointer hover:border-stone-400 dark:hover:border-stone-500 transition-colors"
+                onDragOver={e => { e.preventDefault(); e.currentTarget.classList.add('border-stone-500'); }}
+                onDragLeave={e => { e.currentTarget.classList.remove('border-stone-500'); }}
+                onDrop={e => {
+                  e.preventDefault();
+                  e.currentTarget.classList.remove('border-stone-500');
+                  const file = e.dataTransfer.files[0];
+                  if (file) file.text().then(text => opt.setBatchInput(text));
+                }}
+                onClick={() => {
+                  const input = document.createElement('input');
+                  input.type = 'file';
+                  input.accept = '.fasta,.fa,.faa,.txt';
+                  input.onchange = () => {
+                    const file = input.files?.[0];
+                    if (file) file.text().then(text => opt.setBatchInput(text));
+                  };
+                  input.click();
+                }}
+              >
+                <p className="text-sm text-stone-400">Drop FASTA file here or click to browse</p>
+                <p className="text-xs text-stone-300 mt-1">.fasta, .fa, .faa, .txt</p>
+              </div>
               <textarea
                 value={opt.batchInput}
                 onChange={e => opt.setBatchInput(e.target.value)}
                 placeholder={">Protein1\nMVSKGEELFT...\n>Protein2\nMKWVTFISL..."}
-                className="w-full h-36 p-3 text-sm font-mono bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500 resize-y"
+                className="w-full h-28 p-3 text-sm font-mono bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500 resize-y"
                 spellCheck={false}
               />
-              <button
-                onClick={opt.batchOptimize}
-                disabled={!opt.batchInput.trim()}
-                className="px-4 py-2 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-sm font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-              >
-                Run Batch
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => opt.batchOptimize()}
+                  disabled={!opt.batchInput.trim()}
+                  className="px-4 py-2 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-sm font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                >
+                  Run Batch
+                </button>
+                {opt.batchInput && (
+                  <span className="text-xs text-stone-400 font-mono">
+                    {(opt.batchInput.match(/>/g) || []).length} sequences
+                  </span>
+                )}
+              </div>
               {opt.error && (
                 <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-300 dark:border-red-800 rounded text-sm text-red-600 dark:text-red-400">
                   {opt.error}
