@@ -296,7 +296,7 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
               type="password"
               value={apiKey}
               onChange={e => setApiKey(e.target.value)}
-              placeholder="sk-ant-..."
+              placeholder="API Key"
               className="flex-1 px-2 py-1 text-xs font-mono bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500"
             />
             {apiKey && <span className="text-[10px] text-stone-400">saved</span>}
