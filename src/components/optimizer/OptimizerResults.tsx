@@ -1,7 +1,6 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import type { OptimizationResult, OrganismId } from '../../types/optimizer';
 import { Tabs } from '../ui/Tabs';
-import { CopyButton } from '../ui/CopyButton';
 import { CodonComparisonChart } from './CodonComparisonChart';
 import { streamOptimizerInterpretation } from '../../lib/interpreter/optimizerInterpreter';
 import { Markdown } from '../ui/Markdown';
