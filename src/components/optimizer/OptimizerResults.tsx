@@ -164,14 +164,16 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
                 </button>
                 <button
                   onClick={() => downloadFile(exportFasta(result), 'optimized.fasta')}
-                  className="px-3 py-1.5 text-sm font-medium border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 rounded hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
+                  className="px-3 py-1.5 text-sm font-medium border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 rounded hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors flex items-center gap-1"
                 >
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" /></svg>
                   FASTA
                 </button>
                 <button
                   onClick={() => downloadFile(exportGenBank(result), 'optimized.gb')}
-                  className="px-3 py-1.5 text-sm font-medium border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 rounded hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
+                  className="px-3 py-1.5 text-sm font-medium border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 rounded hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors flex items-center gap-1"
                 >
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" /></svg>
                   GenBank
                 </button>
               </div>
