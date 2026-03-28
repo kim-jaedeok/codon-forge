@@ -62,7 +62,7 @@ function downloadFile(content: string, filename: string) {
   URL.revokeObjectURL(url);
 }
 
-const NT_COLORS = { A: '#22c55e', T: '#ef4444', G: '#eab308', C: '#3b82f6' };
+const NT_COLORS = { A: '#22c55e', T: '#ef4444', G: '#f97316', C: '#3b82f6' };
 
 export function OptimizerResults({ result, organism }: { result: OptimizationResult; organism: OrganismId }) {
   const [tab, setTab] = useState(0);
@@ -185,7 +185,7 @@ export function OptimizerResults({ result, organism }: { result: OptimizationRes
                     <span key={j} className={
                       ch === 'A' ? 'text-green-600' :
                       ch === 'T' ? 'text-red-500' :
-                      ch === 'G' ? 'text-amber-500' :
+                      ch === 'G' ? 'text-orange-500' :
                       ch === 'C' ? 'text-blue-500' : 'text-stone-400'
                     }>{ch}</span>
                   ))}</span>
