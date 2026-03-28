@@ -16,20 +16,20 @@ export function ProteinInput({ value, onChange, onOptimize, error }: Props) {
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder="Paste amino acid sequence (single-letter code)..."
-        className="w-full h-32 p-2 text-xs font-mono bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500 resize-y"
+        className="w-full h-36 p-3 text-sm font-mono bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-600 rounded focus:outline-none focus:border-stone-500 resize-y"
         spellCheck={false}
       />
       <div className="flex items-center gap-2">
         <button
           onClick={onOptimize}
           disabled={!value.trim()}
-          className="px-3 py-1.5 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-xs font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          className="px-4 py-2 bg-stone-900 dark:bg-stone-200 text-white dark:text-stone-900 text-sm font-medium rounded hover:bg-stone-800 dark:hover:bg-stone-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
         >
           Run Optimization
         </button>
         <button
           onClick={() => { onChange(EXAMPLE_GFP); }}
-          className="px-3 py-1.5 text-xs text-stone-500 hover:text-stone-700 dark:hover:text-stone-300 border border-stone-300 dark:border-stone-600 rounded hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
+          className="px-4 py-2 text-xs text-stone-500 hover:text-stone-700 dark:hover:text-stone-300 border border-stone-300 dark:border-stone-600 rounded hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
         >
           Load GFP example
         </button>

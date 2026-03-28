@@ -34,8 +34,8 @@ export function OptimizerPage() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div className="lg:col-span-1 space-y-4">
-        <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-3">
-          <h2 className="text-xs font-medium text-stone-500 dark:text-stone-400 uppercase tracking-wider mb-2">Sequence Input</h2>
+        <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-4">
+          <h2 className="text-sm font-semibold text-stone-700 dark:text-stone-300 mb-3">Sequence Input</h2>
           <Tabs tabs={['Single', 'Batch', 'Custom Table']} active={inputMode} onChange={setInputMode} />
 
           {inputMode === 0 && (
@@ -89,8 +89,8 @@ export function OptimizerPage() {
           )}
         </div>
 
-        <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-3 space-y-4">
-          <h2 className="text-xs font-medium text-stone-500 dark:text-stone-400 uppercase tracking-wider mb-2">Parameters</h2>
+        <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-4 space-y-4">
+          <h2 className="text-sm font-semibold text-stone-700 dark:text-stone-300 mb-3">Parameters</h2>
           <OrganismSelector value={opt.organism} onChange={opt.setOrganism} />
           <OptionsPanel
             avoidEnzymes={opt.avoidEnzymes} onAvoidEnzymesChange={opt.setAvoidEnzymes}
@@ -107,7 +107,7 @@ export function OptimizerPage() {
         {opt.result ? (
           <OptimizerResults result={opt.result} organism={opt.organism} />
         ) : opt.batchResults.length > 0 ? (
-          <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-3">
+          <div className="bg-white dark:bg-stone-800 rounded border border-stone-200 dark:border-stone-700 p-4">
             <h2 className="text-xs font-medium text-stone-500 dark:text-stone-400 uppercase tracking-wider mb-3">Batch Results ({opt.batchResults.length})</h2>
             <div className="space-y-2">
               {opt.batchResults.map((b, i) => (
@@ -135,11 +135,11 @@ export function OptimizerPage() {
             </div>
           </div>
         ) : (
-          <div className="bg-white dark:bg-stone-800 rounded border border-dashed border-stone-300 dark:border-stone-600 p-8 text-center">
-            <p className="text-sm text-stone-400 dark:text-stone-500">
+          <div className="bg-white dark:bg-stone-800 rounded border border-dashed border-stone-300 dark:border-stone-600 p-12 text-center">
+            <p className="text-base text-stone-400 dark:text-stone-500">
               Enter a protein sequence and click <span className="font-medium text-stone-600 dark:text-stone-300">Run Optimization</span> to generate a codon-optimized DNA sequence.
             </p>
-            <p className="text-xs text-stone-300 dark:text-stone-600 mt-3 font-mono">
+            <p className="text-sm text-stone-300 dark:text-stone-600 mt-3 font-mono">
               Protein &rarr; Reverse translate &rarr; CAI optimization &rarr; Constraint repair &rarr; DNA
             </p>
           </div>
