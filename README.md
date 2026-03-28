@@ -103,10 +103,12 @@ Codon optimization tools exist, but they all have significant barriers:
 
 | Feature | Description |
 |---------|-------------|
+| **UniProt Search** | Search by protein name or accession (e.g., "human insulin", P01308) — auto-loads sequence |
 | **5'/3' UTR Addition** | Automatic Kozak (eukaryotic) or Shine-Dalgarno (prokaryotic) sequences |
 | **Batch Processing** | Optimize multiple proteins at once (multi-FASTA input) |
 | **Custom Codon Tables** | Upload your own codon usage frequency table |
 | **FASTA / GenBank Export** | Download optimized sequences in standard formats |
+| **CLI Tool** | Command-line interface for pipeline integration and batch automation |
 | **AI Expression Strategy** | Claude API-powered analysis: expression prediction, vector recommendations, cloning strategy |
 
 ### Optimization Results Include
@@ -284,6 +286,33 @@ npm install
 npm run dev
 ```
 
+### CLI
+
+```bash
+# Basic usage
+npx tsx bin/codonforge.ts "MVSKGEELFT..." --organism ecoli
+
+# From FASTA file
+npx tsx bin/codonforge.ts --input protein.fasta --output optimized.fasta --organism human
+
+# Pipe support
+echo "MVSKGEELFT" | npx tsx bin/codonforge.ts --organism yeast --format raw
+
+# JSON output (for scripting)
+npx tsx bin/codonforge.ts "MVSK..." --organism ecoli --json
+
+# All options
+npx tsx bin/codonforge.ts "MVSK..." \
+  --organism ecoli \
+  --avoid EcoRI,BamHI,HindIII \
+  --harmony \
+  --utr prokaryote \
+  --format genbank
+
+# List available organisms
+npx tsx bin/codonforge.ts --list-organisms
+```
+
 ### Run Tests
 
 ```bash
@@ -355,7 +384,9 @@ CodonForge는 단백질 서열을 목표 유기체에 최적화된 DNA 서열로
 - **5'/3' UTR 추가** — Kozak (진핵) 또는 Shine-Dalgarno (원핵) 자동 삽입
 - **배치 처리** — 여러 단백질 동시 최적화 (FASTA)
 - **커스텀 코돈 테이블** — 사용자 정의 코돈 빈도 업로드
+- **UniProt 검색** — 단백질 이름 또는 Accession으로 서열 자동 로드
 - **FASTA / GenBank 내보내기**
+- **CLI 도구** — 터미널에서 파이프라인 연동 및 배치 자동화
 - **AI 발현 전략 분석** — Claude API 기반 발현 예측 및 실험 제안
 
 ### 최적화 전후 비교
@@ -396,6 +427,14 @@ npm run dev
 ```
 
 또는 [https://dna-analyzer-mu.vercel.app](https://dna-analyzer-mu.vercel.app) 에서 바로 사용하세요.
+
+#### CLI 사용
+
+```bash
+npx tsx bin/codonforge.ts "MVSKGEELFT..." --organism ecoli
+npx tsx bin/codonforge.ts --input protein.fasta --organism human --format genbank
+echo "MVSK..." | npx tsx bin/codonforge.ts --organism yeast --json
+```
 
 ---
 
